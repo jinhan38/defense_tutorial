@@ -1,0 +1,28 @@
+name: defense_tutorial
+description: A new Flutter project.
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=2.18.6 <3.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  flame: ^1.0.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^2.0.0
+
+flutter:
+  assets:
+    - assets/images/weapon/
+    - assets/images/enemy/
+    - assets/images/neutual/
+    - assets/images/
+    - assets/weaponParams.json
+    - assets/enemyParams.json
