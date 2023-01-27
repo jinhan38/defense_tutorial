@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:defense_tutorial/map/map_tile.dart';
 import 'package:flame/components.dart';
 
@@ -15,8 +17,8 @@ class MapComponent extends PositionComponent {
   final double _strokeWidth = 5;
 
   @override
-  void onMount() {
-    super.onMount();
+  FutureOr<void> onLoad() async {
+    await super.onLoad();
     for (var w = 0; w < mapGrid.x; w++) {
       for (var h = 0; h < mapGrid.y; h++) {
         var mapTile = MapTile(
@@ -26,6 +28,7 @@ class MapComponent extends PositionComponent {
         add(mapTile);
       }
     }
+    return null;
   }
 
   /// MapTile이 그려질 때 paintstroke 값이 4라면 가장 왼쪽과 가장 오른쪽이 2씩 짤린다.
