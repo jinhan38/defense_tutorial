@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:ui';
 
+import 'package:defense_tutorial/enemy/enemy_component.dart';
 import 'package:defense_tutorial/map/map_component.dart';
 import 'package:defense_tutorial/util/game_log.dart';
 import 'package:defense_tutorial/util/game_setting.dart';
@@ -16,6 +17,7 @@ class DefenseGame extends FlameGame {
   MapComponent? _mapComponent;
   BaseComponent? _startComponent;
   BaseComponent? _endComponent;
+  EnemyComponent? _enemyComponent;
   late Image blackHole;
   late Image whiteHole;
 
@@ -76,5 +78,9 @@ class DefenseGame extends FlameGame {
         position: _setting.endPositionVector2(),
         size: _setting.mapTileSizeVector2);
     add(_endComponent!);
+  }
+
+  void _setEnemyComponent(){
+
   }
 }
