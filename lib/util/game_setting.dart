@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flame/extensions.dart';
 
 class GameSetting {
@@ -43,6 +45,17 @@ class GameSetting {
         (screenSize.x - mapTileCount * mapTileSize) / 2,
         (screenSize.y - mapTileCount * mapTileSize) / 2,
       );
+
+  Vector2 get startPositionVector2 => mapPositionVector2;
+
+  Vector2 endPositionVector2() {
+    double x = screenSize.x;
+    double y = screenSize.y;
+    return Vector2(
+      (x - (x - (mapTileCount - 2) * mapTileSize) / 2),
+      (y - (y - (mapTileCount - 2) * mapTileSize) / 2),
+    );
+  }
 
   Vector2 mapComponentSize() {
     double x = screenSize.x;
