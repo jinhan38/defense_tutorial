@@ -14,7 +14,7 @@ class MapComponent extends PositionComponent {
     size,
   }) : super(position: position, size: size);
 
-  final double _strokeWidth = 5;
+  final double _strokeWidth = 1;
 
   @override
   FutureOr<void> onLoad() async {
@@ -31,12 +31,7 @@ class MapComponent extends PositionComponent {
     return null;
   }
 
-  /// MapTile이 그려질 때 paintstroke 값이 4라면 가장 왼쪽과 가장 오른쪽이 2씩 짤린다.
-  /// 때문에 strokeWidth의 절반 값 만큼 더해줘야 한다.
   Vector2 _calcPosition(int w, int h, double x, double y, double strokeWidth) {
-    return Vector2(
-      (w * tileSize.x) + (strokeWidth / 2),
-      (h * tileSize.y) + (strokeWidth / 2),
-    );
+    return Vector2(w * tileSize.x, h * tileSize.y);
   }
 }

@@ -7,31 +7,29 @@ import 'package:flame/game.dart';
 
 class DefenseGame extends FlameGame {
   final GameSetting _setting = GameSetting();
+  MapComponent? _mapComponent;
 
   @override
   void onGameResize(Vector2 canvasSize) {
     super.onGameResize(canvasSize);
-    logging("onGameResize canvasSize : $canvasSize");
     _setting.init(canvasSize);
+    _setMapComponent();
   }
 
   @override
   FutureOr<void> onLoad() async {
     logging("DefenseGame.onLoad");
-
-    var mapComponent = MapComponent(
-      tileSize: Vector2(_setting.mapTileSize, _setting.mapTileSize),
-      mapGrid: Vector2(_setting.mapTileWidthCount, _setting.mapTileHeightCount),
-      position: Vector2(0, 0),
-      size: Vector2(_setting.screenSize.x, _setting.screenSize.y),
-    );
-    add(mapComponent);
     return null;
   }
 
-  @override
-  void onMount() {
-    super.onMount();
-    logging("DefenseGame.onMount");
+  void _setMapComponent() {
+    if (_mapComponent != null) remove(_mapComponent!);
+    _mapComponent = MapComponent(
+      tileSize: _setting.mapTileSizeVector2,
+      mapGrid: _setting.mapGridVector2,
+      position: _setting.mapPositionVector2,
+      size: _setting.mapComponentSize(),
+    );
+    add(_mapComponent!);
   }
 }
