@@ -10,6 +10,10 @@ import 'package:flame/components.dart';
 import 'package:flame/game.dart';
 
 import 'base/base_component.dart';
+import 'enemy/enemy_factory.dart';
+import 'enemy/enemy_info.dart';
+import 'enemy/enemy_setting.dart';
+import 'enemy/s_component.dart';
 
 class DefenseGame extends FlameGame {
   final GameSetting _setting = GameSetting();
@@ -17,14 +21,17 @@ class DefenseGame extends FlameGame {
   MapComponent? _mapComponent;
   BaseComponent? _startComponent;
   BaseComponent? _endComponent;
-  EnemyComponent? _enemyComponent;
+  EnemyFactory? _enemyFactory;
   late Image blackHole;
   late Image whiteHole;
+  List<EnemyInfo> enemy = [];
+
+  late final EnemySetting setting = EnemySetting();
 
   @override
-  void onGameResize(Vector2 canvasSize) async{
+  void onGameResize(Vector2 canvasSize) async {
     super.onGameResize(canvasSize);
-    if(!_assetLoad){
+    if (!_assetLoad) {
       _assetLoad = true;
       await _imageLoad();
     }
@@ -32,6 +39,7 @@ class DefenseGame extends FlameGame {
     _setMapComponent();
     _setStartComponent();
     _setEndComponent();
+    // _setEnemyComponent();
   }
 
   @override
@@ -56,11 +64,10 @@ class DefenseGame extends FlameGame {
     add(_mapComponent!);
   }
 
-
-
   Future<void> _imageLoad() async {
     blackHole = await Images().load('blackhole.png');
     whiteHole = await Images().load('whitehole.png');
+    enemy.addAll(await setting.load());
   }
 
   void _setStartComponent() async {
@@ -71,6 +78,7 @@ class DefenseGame extends FlameGame {
         size: _setting.mapTileSizeVector2);
     add(_startComponent!);
   }
+
   void _setEndComponent() async {
     _checkRemove(_endComponent);
     _endComponent = BaseComponent(
@@ -80,7 +88,21 @@ class DefenseGame extends FlameGame {
     add(_endComponent!);
   }
 
-  void _setEnemyComponent(){
+  void _setEnemyComponent() {
+    _checkRemove(_enemyFactory);
+    _enemyFactory = EnemyFactory(_setting.startPositionVector2, enemy);
+    add(_enemyFactory!);
+  }
+
+  void start() {
+    add(SComponent());
+      // List<Sprite> sprites = [];
+      // sprites.add(enemy[0].spriteSheet.getSprite(0, 0));
+      // sprites.add(enemy[0].spriteSheet.getSprite(0, 1));
+      // SpriteAnimation animation = SpriteAnimation.spriteList(sprites, stepTime: 0.4, loop: true);
+    // _enemyFactory?.start();
+      // animation.onStart?.call();
+
 
   }
 }

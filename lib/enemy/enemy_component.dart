@@ -5,7 +5,7 @@ import '../base/moving.dart';
 enum EnemyType { a, b, c, d }
 
 class EnemyComponent extends PositionComponent with Moving{
-  double _maxLife = 0;
+  double maxLife = 0;
   double life = 0;
   int mineValue = 5;
   bool dead = false;
@@ -16,8 +16,16 @@ class EnemyComponent extends PositionComponent with Moving{
   EnemyComponent({super.position, super.size});
 
   void setLife(double l) {
-    _maxLife = l;
+    maxLife = l;
     life = l;
+  }
+
+
+  @override
+  void onGameResize(Vector2 size) {
+    super.onGameResize(size);
+
+
   }
 
   @override
